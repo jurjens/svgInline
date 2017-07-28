@@ -5,7 +5,7 @@ to control SVG elements with CSS or Javascript.
 
 ## Install
 
-Download either `src/svgInline.js` or `dist/svgInline.min.js`, or user bower;
+Download either `src/svgInline.js` or `dist/svgInline.min.js`, or use bower;
 
 ```
 bower install -S svgInline
