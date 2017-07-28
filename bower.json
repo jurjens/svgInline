@@ -1,0 +1,22 @@
+{
+  "name": "svgInline",
+  "authors": [
+    "Jurjen Sytsma <jurjen@collabo.amsterdam>"
+  ],
+  "description": "Replace <img> elements with inline SVG",
+  "main": "src/svgInline.js",
+  "keywords": [
+    "svg",
+    "image",
+    "inline"
+  ],
+  "license": "CC0-1.0",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
