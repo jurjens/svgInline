@@ -64,7 +64,7 @@
         if ( ! mutation.addedNodes.length ) return;
 
         mutation.addedNodes.forEach( function( node ) {
-            if ( node.matches( this.observerSelector ) ) {
+            if ( node.nodeType === Node.ELEMENT_NODE && node.matches( this.observerSelector ) ) {
                 this.replace( $(node) );
             }
         }.bind(this));
