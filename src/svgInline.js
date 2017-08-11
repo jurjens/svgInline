@@ -14,9 +14,60 @@
      */
     var SVGInline = function() {
 
-        // Holds image data. When an svg image occurs more then once, it will be loaded from the storage instead of
-        // being downloaded again. Especially useful for icons
+        /**
+         * Holds image data. When an svg image occurs more then once, it will be loaded from the storage instead of
+         * being downloaded again. Especially useful for icons
+         *
+         * @type {Array}
+         */
         this.storage = [];
+
+        /**
+         * Mutation observer object, to handle svg images added dynamically
+         *
+         * @type {MutationObserver}
+         */
+        this.observer = null;
+
+        /**
+         * Stores a selectorString to match DOM mutations
+         *
+         * @type {string}
+         */
+        this.observerSelector = null;
+    };
+
+    /**
+     * Register the MutationObserver and get ready to handle mutations
+     *
+     * @param selector
+     */
+    SVGInline.prototype.observe = function( selector ) {
+
+        this.observerSelector = selector;
+
+        this.observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function (mutation) {
+                this.handleMutation(mutation);
+            }.bind(this));
+        }.bind(this));
+
+        this.observer.observe(document.querySelector('body'), { childList: true });
+    };
+
+    /**
+     * Handle a DOM mutation; check if and if so replace the inline svg
+     *
+     * @param mutation
+     */
+    SVGInline.prototype.handleMutation = function ( mutation ) {
+        if ( ! mutation.addedNodes.length ) return;
+
+        mutation.addedNodes.forEach( function( node ) {
+            if ( node.matches( this.observerSelector ) ) {
+                this.replace( $(node) );
+            }
+        }.bind(this));
     };
 
     /**
