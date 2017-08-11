@@ -57,6 +57,12 @@ Even if we use it again (loads from cache);
 
 ## Changelog
 
+### v0.2.2
+- Handle child nodes of added nodes
+
+### v0.2.1
+- Fixed a bug that caused errors when text nodes were added
+
 ### v0.2.0
 - Added `svgInline.observe()` to handle dynamically added DOM elements
 

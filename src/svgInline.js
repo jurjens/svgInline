@@ -52,7 +52,7 @@
             }.bind(this));
         }.bind(this));
 
-        this.observer.observe(document.querySelector('body'), { childList: true });
+        this.observer.observe(document.querySelector('body'), { childList: true, subtree: true });
     };
 
     /**
@@ -64,8 +64,16 @@
         if ( ! mutation.addedNodes.length ) return;
 
         mutation.addedNodes.forEach( function( node ) {
-            if ( node.nodeType === Node.ELEMENT_NODE && node.matches( this.observerSelector ) ) {
+            if ( node.nodeType !== Node.ELEMENT_NODE ) return;
+            if ( node.matches( this.observerSelector ) ) {
                 this.replace( $(node) );
+            } else {
+                var els = $(node).find( this.observerSelector );
+                if ( els.length ) {
+                    els.each ( function(i, el) {
+                        this.replace( $(el) );
+                    }.bind(this));
+                }
             }
         }.bind(this));
     };
@@ -80,7 +88,6 @@
      * @param {Object} image jQuery object holding an <img> element
      */
     SVGInline.prototype.replace = function( image ) {
-
         // Get essential attributes
         var attributes = {
             id: image.attr('id'),
